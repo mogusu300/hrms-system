@@ -1,0 +1,64 @@
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <defs>
+    <radialGradient id="waterGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#E8F4F8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B3E5FC;stop-opacity:1" />
+    </radialGradient>
+    
+    <linearGradient id="dropletGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0099FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0066CC;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Main background circle -->
+  <circle cx="128" cy="128" r="128" fill="url(#waterGradient)"/>
+  
+  <!-- Water pool/base (subtle curved shape) -->
+  <ellipse cx="128" cy="180" rx="100" ry="35" fill="#0066CC" opacity="0.08"/>
+  
+  <!-- Ripple circles (animated water ripples) -->
+  <g id="ripples">
+    <!-- Outermost ripple (faintest) -->
+    <circle cx="128" cy="160" r="65" fill="none" stroke="#0099FF" stroke-width="2" opacity="0.2"/>
+    
+    <!-- Middle ripple -->
+    <circle cx="128" cy="160" r="50" fill="none" stroke="#0099FF" stroke-width="2.5" opacity="0.35"/>
+    
+    <!-- Inner ripple (most visible) -->
+    <circle cx="128" cy="160" r="35" fill="none" stroke="#0099FF" stroke-width="3" opacity="0.5"/>
+  </g>
+  
+  <!-- Water droplet (main element) -->
+  <g id="droplet">
+    <!-- Droplet body - using bezier curves for smooth shape -->
+    <path d="M 128 50 
+             C 115 50 105 60 105 75
+             C 105 95 128 135 128 135
+             C 128 135 151 95 151 75
+             C 151 60 141 50 128 50 Z" 
+          fill="url(#dropletGradient)" 
+          filter="drop-shadow(0 4px 8px rgba(0,0,0,0.2))"/>
+    
+    <!-- Highlight on droplet (light reflection) -->
+    <ellipse cx="120" cy="65" rx="6" ry="10" fill="#FFFFFF" opacity="0.6"/>
+    
+    <!-- Secondary highlight -->
+    <circle cx="125" cy="75" r="3" fill="#FFFFFF" opacity="0.4"/>
+  </g>
+  
+  <!-- Additional ripple detail lines for more water effect -->
+  <g id="ripple-details" opacity="0.3">
+    <path d="M 90 160 Q 100 155 128 160 T 170 160" fill="none" stroke="#0066CC" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M 88 170 Q 108 163 128 170 T 172 170" fill="none" stroke="#0066CC" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Splash effect (small water droplets around main drop) -->
+  <g id="splashes" opacity="0.6">
+    <circle cx="95" cy="125" r="3" fill="#0099FF"/>
+    <circle cx="155" cy="130" r="2.5" fill="#0099FF"/>
+    <circle cx="110" cy="145" r="2" fill="#0099FF"/>
+    <circle cx="148" cy="148" r="2" fill="#0099FF"/>
+  </g>
+</svg>

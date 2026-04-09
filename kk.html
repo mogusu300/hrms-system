@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SOAP Test - Get Employee</title>
+    <style>
+        body { font-family: Arial; padding: 40px; background:#f4f6f9; }
+        .card {
+            background:white;
+            padding:25px;
+            max-width:500px;
+            border-radius:8px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        }
+        input, button {
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+        }
+        button {
+            background:#0078D4;
+            color:white;
+            border:none;
+            cursor:pointer;
+        }
+        #result {
+            margin-top:20px;
+            background:#eef3f8;
+            padding:10px;
+            word-break:break-word;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Get Employee Details (SOAP Test)</h2>
+
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <input type="text" id="manNumber" placeholder="Man Number (e.g. M1174)" />
+
+    <button onclick="getEmployee()">Fetch</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+async function getEmployee() {
+
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const manNumber = document.getElementById("manNumber").value;
+
+    const soapEnvelope = `
+        <?xml version="1.0" encoding="utf-8"?>
+        <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                <GetEmployeeDetails xmlns="urn:microsoft-dynamics-schemas/codeunit/InsertDocuments">
+                    <manNumber>${manNumber}</manNumber>
+                </GetEmployeeDetails>
+            </soap:Body>
+        </soap:Envelope>
+    `;
+
+    try {
+        const response = await fetch(
+            "http://41.216.68.50:7247/BusinessCentral142/WS/Mulonga%20Water%20Supply/Codeunit/WebAPI",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/xml; charset=utf-8",
+                    "SOAPAction": "urn:microsoft-dynamics-schemas/codeunit/InsertDocuments:GetEmployeeDetails",
+                    "Authorization": "Basic " + btoa(username + ":" + password)
+                },
+                body: soapEnvelope
+            }
+        );
+
+        const text = await response.text();
+
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(text, "text/xml");
+
+        const returnNode = xmlDoc.getElementsByTagName("return_value")[0];
+
+        if (returnNode) {
+            document.getElementById("result").innerHTML =
+                "<strong>Return Value:</strong><br>" + returnNode.textContent;
+        } else {
+            document.getElementById("result").innerText = text;
+        }
+
+    } catch (error) {
+        document.getElementById("result").innerText = "Error: " + error;
+    }
+}
+</script>
+
+</body>
+</html>

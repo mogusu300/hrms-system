@@ -1,0 +1,14 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="6" fill="#1E3A8A"/>
+  <g transform="translate(0, 0)">
+    <!-- Water drop shape -->
+    <ellipse cx="16" cy="17.6" rx="11.2" ry="12.16" fill="#3B82F6" opacity="0.3"/>
+    <!-- M letter for Mulonga -->
+    <text x="16" y="19.84" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="14.4" fill="white" text-anchor="middle" dominant-baseline="middle">M</text>
+    <!-- Water waves at bottom -->
+    <path d="M 4.8 24.96 Q 9.6 23.04 14.4 24.96 Q 19.2 26.88 24 24.96 Q 27.2 23.68 28.8 24.96" stroke="white" stroke-width="0.64" fill="none" stroke-linecap="round"/>
+    <path d="M 3.2 26.88 Q 8 24.96 12.8 26.88 Q 17.6 28.8 22.4 26.88 Q 25.6 25.6 27.2 26.88" stroke="white" stroke-width="0.64" fill="none" opacity="0.6" stroke-linecap="round"/>
+    <!-- ERP label -->
+    <text x="16" y="8.96" font-family="Arial, Helvetica, sans-serif" font-weight="600" font-size="3.2" fill="white" text-anchor="middle" opacity="0.9">MWSC</text>
+  </g>
+</svg>
