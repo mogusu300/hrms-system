@@ -5,7 +5,7 @@
  * Provides offline caching and background sync for field staff
  */
 
-const CACHE_NAME = 'mwsc-erp-v1';
+const CACHE_NAME = 'mwsc-erp-v2';
 const OFFLINE_URL = '/offline';
 
 // Static assets to pre-cache on install
@@ -99,9 +99,15 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Static assets (JS, CSS, images, fonts) - Cache First strategy
+  // Next.js build assets can change between deploys; prefer fresh network copy
+  // to avoid hydration mismatches from stale cached client bundles.
+  if (url.pathname.startsWith('/_next/static/')) {
+    event.respondWith(networkFirst(request));
+    return;
+  }
+
+  // Static assets (images/fonts/icons) - Cache First strategy
   if (
-    url.pathname.startsWith('/_next/static/') ||
     url.pathname.startsWith('/icons/') ||
     url.pathname.match(/\.(png|jpg|jpeg|svg|gif|ico|woff2?|ttf|eot)$/)
   ) {

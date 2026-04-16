@@ -6,12 +6,12 @@ import { Package, ShoppingCart, Users, Truck, Calendar, Wrench } from "lucide-re
 import { PageHeader } from "@/components/page-header"
 
 const approvalModules = [
-  { name: "Leave Applications Approval", href: "/dashboard/approval/leave-applications", icon: Calendar },
-  { name: "Staff Advances Approval", href: "/dashboard/approval/staff-advances", icon: Users },
-  { name: "Transport Requests Approval", href: "/dashboard/approval/transport-requests", icon: Truck },
-  { name: "Purchase Approval", href: "/dashboard/approval/purchase", icon: ShoppingCart },
-  { name: "Work Orders Approval", href: "/dashboard/approval/work-orders", icon: Wrench },
-  { name: "Stores Approval", href: "/dashboard/approval/stores", icon: Package },
+  { name: "Leave Applications", href: "/dashboard/approval/leave-applications", icon: Calendar },
+  { name: "Staff Advances", href: "/dashboard/approval/staff-advances", icon: Users },
+  { name: "Transport Requests", href: "/dashboard/approval/transport-requests", icon: Truck },
+  { name: "Purchase Requisition", href: "/dashboard/approval/purchase", icon: ShoppingCart },
+  { name: "Work Orders", href: "/dashboard/approval/work-orders", icon: Wrench },
+  { name: "Stores Requisition", href: "/dashboard/approval/stores", icon: Package },
 ]
 
 export default function ApprovalOverviewPage() {

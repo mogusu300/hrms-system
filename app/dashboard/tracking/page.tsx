@@ -1,5 +1,3 @@
-"use client"
-
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import Link from "next/link"
 import { Package, ShoppingCart, Users, Truck, Calendar, Wrench } from "lucide-react"
@@ -7,11 +5,11 @@ import { PageHeader } from "@/components/page-header"
 
 const trackingModules = [
   { name: "Leave Applications", href: "/dashboard/reports/leave-applications", icon: Calendar },
-  { name: "Staff Advances Tracking", href: "/dashboard/reports/staff-advances-tracking", icon: Users },
-  { name: "Transport Requests Tracking", href: "/dashboard/reports/transport-requests-tracking", icon: Truck },
-  { name: "Purchase Tracking", href: "/dashboard/reports/purchase-tracking", icon: ShoppingCart },
+  { name: "Staff Advances", href: "/dashboard/reports/staff-advances-tracking", icon: Users },
+  { name: "Transport Requests", href: "/dashboard/reports/transport-requests-tracking", icon: Truck },
+  { name: "Purchase Requisition", href: "/dashboard/reports/purchase-tracking", icon: ShoppingCart },
   { name: "Work Orders", href: "/dashboard/reports/work-orders", icon: Wrench },
-  { name: "Stores Tracking", href: "/dashboard/reports/stores-tracking", icon: Package },
+  { name: "Stores Requisition", href: "/dashboard/reports/stores-tracking", icon: Package },
 ]
 
 export default function TrackingOverviewPage() {

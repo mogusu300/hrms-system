@@ -10,6 +10,24 @@ import { useEffect } from "react"
 export function ServiceWorkerRegistration() {
   useEffect(() => {
     if (typeof window === "undefined") return
+
+    if (process.env.NODE_ENV !== "production") {
+      // Prevent stale SW cache from interfering with development hydration.
+      navigator.serviceWorker
+        ?.getRegistrations()
+        .then((registrations) => Promise.all(registrations.map((registration) => registration.unregister())))
+        .catch(() => undefined)
+
+      if ("caches" in window) {
+        caches
+          .keys()
+          .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
+          .catch(() => undefined)
+      }
+
+      return
+    }
+
     if (!("serviceWorker" in navigator)) {
       console.log("[PWA] Service workers not supported")
       return
@@ -35,12 +53,16 @@ export function ServiceWorkerRegistration() {
 
           newWorker.addEventListener("statechange", () => {
             if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
-              // New content available, show update notification
-              console.log("[PWA] New content available - refresh to update")
-              // Could show a toast here to prompt user to refresh
+              // Ask the waiting worker to activate immediately.
+              newWorker.postMessage({ type: "SKIP_WAITING" })
             }
           })
         })
+
+        // If a waiting worker already exists (from a previous load), activate it now.
+        if (registration.waiting) {
+          registration.waiting.postMessage({ type: "SKIP_WAITING" })
+        }
       } catch (error) {
         console.error("[PWA] Service Worker registration failed:", error)
       }
@@ -52,6 +74,22 @@ export function ServiceWorkerRegistration() {
     } else {
       window.addEventListener("load", registerSW)
       return () => window.removeEventListener("load", registerSW)
+    }
+  }, [])
+
+  useEffect(() => {
+    let hasRefreshed = false
+
+    const handleControllerChange = () => {
+      if (hasRefreshed) return
+      hasRefreshed = true
+      window.location.reload()
+    }
+
+    navigator.serviceWorker?.addEventListener("controllerchange", handleControllerChange)
+
+    return () => {
+      navigator.serviceWorker?.removeEventListener("controllerchange", handleControllerChange)
     }
   }, [])
 
